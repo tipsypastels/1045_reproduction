@@ -1,11 +1,49 @@
-canvas#canvas {
+@import url('https://fonts.googleapis.com/css?family=Patua+One');
+
+body {
+  margin: 0;
+  color: #222;
+  background-color: #eee;
+  font-family: "Patua One";
+}
+
+h1 {
+  text-align: center;
+  padding-bottom: 0.5em;
+  border-bottom: 3px #222 dashed;
+}
+
+canvas {
+  background-color: white;
   border: 1px solid black;
+  border-radius: 1%;
+}
+
+canvas#canvas {
+  display: block;
+  margin: auto;
 }
 
 section.options {
-
+  width: 700px;
+  margin: auto;
+  text-align: center;
 }
 
 section.options canvas.option {
+  transition: 0.15s;
+}
 
+section.options canvas.option:hover {
+  background-color: #eee;
+}
+
+footer {
+  margin-top: 2em;
+  padding: 2em;
+  letter-spacing: 0.175em;
+  text-align: center;
+  font-style: italic;
+  background-color: #222;
+  color: #eee;
 }
