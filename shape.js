@@ -13,35 +13,50 @@
 */
 
 class Shape {
-  constructor(canvas, ctx, generation, ...genes) {
+  constructor(isParent, canvas, ctx, generation, ...genes) {
     if (genes.length !== GENE_COUNT) {
       throw new Error(`Received ${genes.length} genes, expected ${GENE_COUNT}. Aborting constructor...`);
     }
 
+    this.isParent = isParent;
     this.canvas = canvas;
     this.ctx = ctx;
     this.generation = generation;
     this.genes = genes;
 
-    this.draw();
+    get.id("generationNumber").innerHTML = generation-1;
+
+    this.draw(this.ctx);
+    if (this.isParent) {
+      this.spawnChildren();
+    }
   }
 
-  statusInfo() {
-    this.ctx.font = "bold 20px Patua One";
-    this.ctx.fillText(`Generation ${this.generation}`, 10, 30);
+  statusInfo(ctx) {
+    ctx.font = "bold 20px Patua One";
+    ctx.fillText(`Generation ${this.generation}`, 10, 30);
 
-    this.ctx.font = "bold 15px Patua One";
-    this.ctx.fillText(JSON.stringify(this.genes), 10, 50);
+    ctx.font = "bold 15px Patua One";
+    ctx.fillText(JSON.stringify(this.genes), 10, 50);
   }
 
-  draw() {
-    this.statusInfo();
-    simpleTree(this.ctx, this.canvas.width/2, this.canvas.height, ...formatGenes(this.genes));
+  draw(ctx) {
+    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    if (this.isParent) {
+      this.statusInfo(ctx);
+      ctx.scale(1, 1);
+      var pos = [this.canvas.width/2, this.canvas.height];
+    }
+    else {
+      ctx.scale(0.5, 0.5);
+      var pos = [this.canvas.width, this.canvas.height*2]
+    }
+    simpleTree(ctx, ...pos, ...formatGenes(this.genes));
   }
 
   generateMutationMatrix() {
     let matrix = new Array;
-    for (var i = 0; i < this.genes.length*2; i++) {
+    for (var i = 0; i < GENE_COUNT*2; i++) {
       var _genes = this.genes.slice(0); // clone
       _genes[Math.floor(i/2)] += getAddOrSub(i);
       matrix.push(_genes);
@@ -51,6 +66,13 @@ class Shape {
   }
 
   spawnChildren() {
+    let matrix = this.generateMutationMatrix();
+    createChildCanvases(matrix);
+    let options = get.class("option");
 
+    Object.values(options).slice(0, GENE_COUNT*2).forEach((_canvas, index) => {
+      var _ctx = _canvas.getContext("2d");
+      var _shape = new Shape(false, _canvas, _ctx, this.generation + 1, ...matrix[index]);
+    });
   }
 }

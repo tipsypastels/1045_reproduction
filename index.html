@@ -9,27 +9,27 @@
   <script type="text/javascript" src="main.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
+<body id="body">
+  <aside id="modal">
+    <h1>Information</h1>
+    <p>This project is a simple simulation of evolution by artificial selection, making use of binary trees rather than something more complicated like real animals. In the top left of the canvas you can see the generation number of the current shape, as well as a visible list of its "genes". There are eight genes, and each of them influences a different drawing rule in the binary tree function; for instance, gene zero affects the angle each branch is drawn at relative to its parent.</p>
+
+    <p>To advance to the next generation, you must click on one of its children listed under the second heading. That child will then become the parent of the next generation of binary trees. There are sixteen children per generation, and each one has a single gene changed by plus one or minus one relative to its parent.</p>
+
+    <p>Click the button below to begin the program. If you need to see this panel again, you may reopen it by pressing the <strong>[H]</strong> key.</p>
+
+    <div id="close">[Dismiss Help]</div>
+  </aside>
   <h1>CPSC 1045 Final Project</h1>
   <canvas id="canvas" width="700" height="700"></canvas>
   
   <h1>Generation <span id="generationNumber">0</span>'s Children</h1>
-  <section class="options">
-    <canvas class="option" width="200" height="200"></canvas>
-    <canvas class="option" width="200" height="200"></canvas>
-    <canvas class="option" width="200" height="200"></canvas>
-
-    <canvas class="option" width="200" height="200"></canvas>
-    <canvas class="option" width="200" height="200"></canvas>
-    <canvas class="option" width="200" height="200"></canvas>
-
-    <canvas class="option" width="200" height="200"></canvas>
-    <canvas class="option" width="200" height="200"></canvas>
-    <canvas class="option" width="200" height="200"></canvas>    
+  <section class="options" id="options">
+  
   </section>
 
   <footer>
-    site by dakota
+    site by kyle
   </footer>
 </body>
 </html>

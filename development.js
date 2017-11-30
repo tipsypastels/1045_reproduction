@@ -7,7 +7,6 @@ const simpleTree = (ctx, startX, startY, angle, branchThickness, bzInfo, length,
   ctx.rotate(angle * Math.PI/rotDiv);
   ctx.moveTo(0, 0);
   
-  console.log(bzInfo);
   ctx.bezierCurveTo(
     bzInfo[0], 
     -length*bzInfo[1], 
@@ -54,10 +53,22 @@ const formatGenes = genes => {
   ];
 };
 
+/*
+
+  DEBUG FUNCTIONS
+    Not to be used in production code.
+
+*/
 const randomGeneArray = () => {
   var array = new Array;
   for (var i = 0; i < GENE_COUNT; i++) {
-    array.push(Math.floor((Math.random()*9)-9));
+    array.push(Math.floor((Math.random()*18)-9));
   }
   return array;
+}
+
+const testRandomParents = (canvas, ctx) => {
+  var loop = setInterval(function(){
+    var shape = new Shape(true, canvas, ctx, 0, ...randomGeneArray());
+  }, 1000);
 }
